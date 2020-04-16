@@ -3,6 +3,8 @@ package ru.geekbrains.site.at;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SearchPage extends Header{
     public static final By TITLE_PROFESSIONS_BUTTON_SELECTOR = By.xpath("/html/body/div[1]/div[7]/div/div[1]/div/ul/li[2]/a");//профессии
@@ -17,6 +19,8 @@ public class SearchPage extends Header{
     }
 
     public Integer numberElementsTitleSearch(By selector){//"подсчет" количества элементов указанных в заголовке
+        WebDriverWait wait = new WebDriverWait(driver, 40);
+
         WebElement buttonProf = driver.findElement(selector);
        // System.out.println(buttonProf.getText());
         String[] token = buttonProf.getText().split("・");

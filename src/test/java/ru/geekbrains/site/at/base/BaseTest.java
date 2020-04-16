@@ -32,7 +32,7 @@ public class BaseTest {
         searchPage = new SearchPage(driver);// создаем экземпляры каждой страницы
 
 
-       driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);// ожидание 10 секунд
+       driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);// ожидание 10 секунд
 //
     }
 
