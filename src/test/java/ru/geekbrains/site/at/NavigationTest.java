@@ -1,64 +1,49 @@
 package ru.geekbrains.site.at;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import ru.geekbrains.site.at.base.BaseTest;
-
+@DisplayName("Проверка системы навигации")
 public class NavigationTest extends BaseTest {
     //    Перейти на сайт https://geekbrains.ru/courses
 //    Нажать на кнопку Курсы
 //    Проверить что страница Курсы открылась
 //    Повторить для
 //    Курсы
-//            Вебинары
+//    Вебинары
 //    Форум
-//            Блог
+//    Блог
 //    Тесты
-//            Карьера
+//    Карьера
 
-
+    @DisplayName("Проверка перехода по кнопке курсы")
     @Test
-    void checkNavigation() {
-        driver.get("https://geekbrains.ru/career");
-
-//        //Курсы
-//        WebElement buttonCourses = driver.findElement(By.cssSelector("[class*=\"main-page-hidden\"] [href=\"/courses\"]"));
-//        buttonCourses.click();
-//        WebElement headerPageCourses = driver.findElement(By.cssSelector("[class=\"gb-header__title\"]"));
-//        Assertions.assertEquals("Курсы", headerPageCourses.getText());
-//        driver.findElement(By.cssSelector("div button svg[class=\"svg-icon icon-popup-close-button \"]")).click();
-//
-//
-//        //Вебинары
-//        WebElement buttonEvents = driver.findElement(By.cssSelector("[class*=\"main-page-hidden\"] [href=\"/events\"]"));
-//        buttonEvents.click();
-//        WebElement headerPageEvents = driver.findElement(By.cssSelector("[class=\"gb-header__title\"]"));
-//        Assertions.assertEquals("Вебинары", headerPageEvents.getText());
-//        //Форум
-//        WebElement buttonTopics = driver.findElement(By.cssSelector("[class*=\"main-page-hidden\"] [href=\"/topics\"]"));
-//        buttonTopics.click();
-//        WebElement headerPageTopics = driver.findElement(By.cssSelector("[class=\"gb-header__title\"]"));
-//        Assertions.assertEquals("Форум", headerPageTopics.getText());
-//        //Блог
-//        href="/posts"
-        WebElement buttonPosts = driver.findElement(By.cssSelector("[class*=\"main-page-hidden\"] [href=\"/posts\"]"));
-        buttonPosts.click();
-        WebElement headerPagePosts = driver.findElement(By.cssSelector("[class=\"gb-header__title\"]"));
-        Assertions.assertEquals("Блог", headerPagePosts.getText());
-//        //Тесты
-////        href="/tests"
-//        WebElement buttonTests = driver.findElement(By.cssSelector("[class*=\"main-page-hidden\"] [href=\"/tests\"]"));
-//        buttonTests.click();
-//        WebElement headerPageTests = driver.findElement(By.cssSelector("[class=\"gb-header__title\"]"));
-//        Assertions.assertEquals("Тесты", headerPageTests.getText());
-        //Карьер
-//        href="/career"
-//        WebElement buttonCareer = driver.findElement(By.cssSelector("[class*=\"main-page-hidden\"] [href=\"/career\"]"));
-//        buttonCareer.click();
-//        WebElement headerPageCareer = driver.findElement(By.cssSelector("[class=\"gb-header__title\"]"));
-//        Assertions.assertEquals("Карьера", headerPageCareer.getText());
+    public void coursesNavigation(){
+        careerPage.startPageCareer();
+        careerPage.clickButton(Header.COURSES_BUTTON_SELECTOR);
+        Assertions.assertEquals("Курсы",coursesPage.getHeaderTitle());
     }
+    @DisplayName("Проверка перехода по кнопке вебинвры")
+    @Test
+    public void eventsNavigation(){
+        careerPage.startPageCareer();
+        careerPage.clickButton(Header.EVENTS_BUTTON_SELECTOR);
+        Assertions.assertEquals("Вебинары",coursesPage.getHeaderTitle());
+    }
+@DisplayName("Проверка перехода по кнопке форум")
+@Test
+public void topicsNavigation(){
+    careerPage.startPageCareer();
+    careerPage.clickButton(Header.TOPICS_BUTTON_SELECTOR);
+    Assertions.assertEquals("Форум",coursesPage.getHeaderTitle());
+}
+@DisplayName("Проверка перехода по кнопке блог")
+@Test
+public void postsNavigation(){
+    careerPage.startPageCareer();
+    careerPage.clickButton(Header.POSTS_BUTTON_SELECTOR);
+    Assertions.assertEquals("Блог",coursesPage.getHeaderTitle());
+}
 
 }

@@ -1,68 +1,55 @@
-package ru.geekbrains.main.site.at;
-
-
+package ru.geekbrains.site.at;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.geekbrains.site.at.base.BaseTest;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
+import static org.hamcrest.core.AllOf.allOf;
+import static org.hamcrest.number.OrderingComparison.greaterThan;
+import static org.hamcrest.number.OrderingComparison.lessThan;
+
+@DisplayName("Пороверка поисковой выдачи")
 public class SearchTest extends BaseTest {
+
 //    Перейти на сайт https://geekbrains.ru/courses
 //    Нажать на кнопку Поиск
 //    В поле Поиск ввести текст: java
-//    Проверить что отобразились блоки:
-//            Профессии
-//            Курсы
-//            Вебинары
-//            Блоги
-//            Форум
-//            Тесты
-//            Проекты и компании
+//    Проверить что отобразились блоки и в них:
+//    Профессий не менее чем 2
+//    Курсов более 15
+//    Вебинаров больше чем 180, но меньше 300
+//    Блогов более 300
+//    Форумов не 350
+//    Тестов не 0
+//    В Проектах и компаниях отображается GeekBrains
 
+    //Изменить во втором тесте проверки на hamcrest
+
+    @DisplayName("Пороверка выдачи поисковика на слово JAVA")
     @Test
-    void name() {
-        driver.get("https://geekbrains.ru/career");
-        WebElement buttonSearch = driver.findElement(By.cssSelector("[id=\"top-menu\"] [class=\"show-search-form\"] svg"));
-        buttonSearch.click();
+    void SearchJavaTest() {
+        careerPage.startPageCareer();
+        careerPage.startSearch("java");
 
-        WebElement inputSearch = driver.findElement(By.cssSelector("input[class=\"search-panel__search-field\"]"));
-        inputSearch.sendKeys("java");
+        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_PROFESSIONS_BUTTON_SELECTOR), greaterThanOrEqualTo(2));
+        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_COURSES_BUTTON_SELECTOR), greaterThan(15));
+        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_WEBINARS_BUTTON_SELECTOR), allOf(
+                greaterThan(180),
+                lessThan(300)));
+        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_BLOG_BUTTON_SELECTOR) , greaterThanOrEqualTo(300));
+        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_WEBINARS_BUTTON_SELECTOR), anyOf(
+                greaterThan(350),
+                lessThan(350)));//вот такая странная проверка на неравенство
+        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_TESTS_BUTTON_SELECTOR), greaterThan(0));
 
-        WebElement textProfession = driver.findElement(By.xpath("//header/h2[text()='Профессии']"));
-        WebElement textCourses = driver.findElement(By.xpath("//header/h2[text()='Курсы']"));
-        WebElement textWebinars = driver.findElement(By.xpath("//header/h2[text()='Вебинары']"));
-        WebElement textBlogs = driver.findElement(By.xpath("//header/h2[text()='Блоги']"));
-        WebElement textForum = driver.findElement(By.xpath("//header/h2[text()='Форум']"));
-        WebElement textTests = driver.findElement(By.xpath("//header/h2[text()='Тесты']"));
-        WebElement textProjectsAndCompanies = driver.findElement(By.xpath("//header/h2[text()='Проекты и компании']"));
-
-
-        WebDriverWait wait = new WebDriverWait(driver, 40);
-//
-//        wait.until(ExpectedConditions.textToBe(By.xpath("//header/h2[text()='Профессии']"),"Профессии"));
-//        wait.until(ExpectedConditions.textToBe(By.xpath("//header/h2[text()='Курсы']"),"Курсы"));
-//        wait.until(ExpectedConditions.textToBe(By.xpath("//header/h2[text()='Вебинары']"),"Вебинары"));
-//        wait.until(ExpectedConditions.textToBe(By.xpath("//header/h2[text()='Блоги']"),"Блоги"));
-//        wait.until(ExpectedConditions.textToBe(By.xpath("//header/h2[text()='Форум']"),"Форум"));
-//        wait.until(ExpectedConditions.textToBe(By.xpath("//header/h2[text()='Тесты']"),"Тесты"));
-//        wait.until(ExpectedConditions.textToBe(By.xpath("//header/h2[text()='Проекты и компании']"),"Проекты и компании"));
-//
-        wait.until(ExpectedConditions.textToBePresentInElement(textProfession,"Профессии"));
-        wait.until(ExpectedConditions.textToBePresentInElement(textCourses,"Курсы"));
-//        wait.until(ExpectedConditions.textToBePresentInElement(textWebinars,"Вебинары"));
-//        wait.until(ExpectedConditions.textToBePresentInElement(textBlogs,"Блоги"));
-//        wait.until(ExpectedConditions.textToBePresentInElement(textForum,"Форум"));
-//        wait.until(ExpectedConditions.textToBePresentInElement(textTests,"Тесты"));
-//        wait.until(ExpectedConditions.textToBePresentInElement(textProjectsAndCompanies,"Проекты и компании"));
-
-//        Assertions.assertEquals("Курсы", textCourses.getText());
-//        Assertions.assertEquals("Вебинары", textWebinars.getText());
-//        Assertions.assertEquals("Блоги", textBlogs.getText());
-//        Assertions.assertEquals("Форум", textForum.getText());
-//        Assertions.assertEquals("Тесты", textTests.getText());
-//        Assertions.assertEquals("Проекты и компании", textProjectsAndCompanies.getText());
+//        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_PROFESSIONS_BUTTON_SELECTOR) >= 2);
+//        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_COURSES_BUTTON_SELECTOR) > 15);
+//        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_WEBINARS_BUTTON_SELECTOR) > 180 &
+//                                        searchPage.numberElementsTitleSearch(SearchPage.TITLE_WEBINARS_BUTTON_SELECTOR) < 300 );
+//        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_BLOG_BUTTON_SELECTOR) >= 300);
+//        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_FORUM_BUTTON_SELECTOR) != 350);
+//        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_TESTS_BUTTON_SELECTOR) != 0);
 
 
     }
