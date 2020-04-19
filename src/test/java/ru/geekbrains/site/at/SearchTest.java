@@ -1,13 +1,8 @@
 package ru.geekbrains.site.at;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.support.PageFactory;
 import ru.geekbrains.site.at.base.BaseTest;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-
-import static org.hamcrest.core.AllOf.allOf;
-import static org.hamcrest.number.OrderingComparison.greaterThan;
-import static org.hamcrest.number.OrderingComparison.lessThan;
 
 @DisplayName("Пороверка поисковой выдачи")
 public class SearchTest extends BaseTest {
@@ -29,19 +24,32 @@ public class SearchTest extends BaseTest {
     @DisplayName("Пороверка выдачи поисковика на слово JAVA")
     @Test
     void SearchJavaTest() {
-        careerPage.startPageCareer();
-        careerPage.startSearch("java");
+        driver.get("https://geekbrains.ru/career");
 
-        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_PROFESSIONS_BUTTON_SELECTOR), greaterThanOrEqualTo(2));
-        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_COURSES_BUTTON_SELECTOR), greaterThan(15));
-        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_WEBINARS_BUTTON_SELECTOR), allOf(
-                greaterThan(180),
-                lessThan(300)));
-        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_BLOG_BUTTON_SELECTOR) , greaterThanOrEqualTo(300));
-        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_WEBINARS_BUTTON_SELECTOR), anyOf(
-                greaterThan(350),
-                lessThan(350)));//вот такая странная проверка на неравенство
-        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_TESTS_BUTTON_SELECTOR), greaterThan(0));
+        PageFactory.initElements(driver, Page.class).
+                startSearch("java").
+                checkTitleNumberGreaterThanOrEqualTo("Профессии", 1).
+                checkTitleNumberGreaterThanOrEqualTo("Курсы", 15).
+                checkTitleNumberGreaterThanOrEqualTo("Вебинары", 180).
+                checkTitleNumberGreaterThanOrEqualTo("Блоги", 300).
+                checkTitleNumberGreaterThanOrEqualTo("Форумы", 300).
+                checkTitleNumberGreaterThanOrEqualTo("Тесты", 1);
+
+
+//
+//        careerPage.startPageCareer();
+//        careerPage.startSearch("java");
+//
+//        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_PROFESSIONS_BUTTON_SELECTOR), greaterThanOrEqualTo(2));
+//        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_COURSES_BUTTON_SELECTOR), greaterThan(15));
+//        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_WEBINARS_BUTTON_SELECTOR), allOf(
+//                greaterThan(180),
+//                lessThan(300)));
+//        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_BLOG_BUTTON_SELECTOR) , greaterThanOrEqualTo(300));
+//        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_WEBINARS_BUTTON_SELECTOR), anyOf(
+//                greaterThan(350),
+//                lessThan(350)));//вот такая странная проверка на неравенство
+//        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_TESTS_BUTTON_SELECTOR), greaterThan(0));
 
 //        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_PROFESSIONS_BUTTON_SELECTOR) >= 2);
 //        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_COURSES_BUTTON_SELECTOR) > 15);
