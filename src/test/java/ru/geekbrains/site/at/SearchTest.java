@@ -1,4 +1,5 @@
 package ru.geekbrains.site.at;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.PageFactory;
@@ -33,31 +34,8 @@ public class SearchTest extends BaseTest {
                 checkTitleNumberGreaterThanOrEqualTo("Вебинары", 180).
                 checkTitleNumberGreaterThanOrEqualTo("Блоги", 300).
                 checkTitleNumberGreaterThanOrEqualTo("Форумы", 300).
-                checkTitleNumberGreaterThanOrEqualTo("Тесты", 1);
-
-
-//
-//        careerPage.startPageCareer();
-//        careerPage.startSearch("java");
-//
-//        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_PROFESSIONS_BUTTON_SELECTOR), greaterThanOrEqualTo(2));
-//        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_COURSES_BUTTON_SELECTOR), greaterThan(15));
-//        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_WEBINARS_BUTTON_SELECTOR), allOf(
-//                greaterThan(180),
-//                lessThan(300)));
-//        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_BLOG_BUTTON_SELECTOR) , greaterThanOrEqualTo(300));
-//        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_WEBINARS_BUTTON_SELECTOR), anyOf(
-//                greaterThan(350),
-//                lessThan(350)));//вот такая странная проверка на неравенство
-//        assertThat(searchPage.numberElementsTitleSearch(SearchPage.TITLE_TESTS_BUTTON_SELECTOR), greaterThan(0));
-
-//        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_PROFESSIONS_BUTTON_SELECTOR) >= 2);
-//        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_COURSES_BUTTON_SELECTOR) > 15);
-//        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_WEBINARS_BUTTON_SELECTOR) > 180 &
-//                                        searchPage.numberElementsTitleSearch(SearchPage.TITLE_WEBINARS_BUTTON_SELECTOR) < 300 );
-//        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_BLOG_BUTTON_SELECTOR) >= 300);
-//        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_FORUM_BUTTON_SELECTOR) != 350);
-//        Assertions.assertTrue(searchPage.numberElementsTitleSearch(SearchPage.TITLE_TESTS_BUTTON_SELECTOR) != 0);
+                checkTitleNumberGreaterThanOrEqualTo("Тесты", 1).
+                checkCompanyIsPresent("Образовательный портал GeekBrains");
 
 
     }
