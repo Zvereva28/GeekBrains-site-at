@@ -1,5 +1,6 @@
 package ru.geekbrains.site.at;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,7 +30,7 @@ public class Footer {
     @FindBy(css = "[href=\"/license.pdf\"]")
     private WebElement buttonLicenseFooter;
 
-
+    @Step("Проверка корректности Footer")
     public Page CheckFooterPresent() {
         System.out.println("Запуск");
         Assertions.assertNotNull(buttonPhoneFooter.getSize());
