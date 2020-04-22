@@ -1,6 +1,12 @@
 # GeekBrains-site-at
 Учебный проект автоматезированного тестирования на примере сайта geekbrains.ru
+
 Библиотеки:
+* selenium-java
+* junit-jupiter
+* hamcrest
+* allure-junit5
+
 Тесты:
 
 Тест GB-search-001
