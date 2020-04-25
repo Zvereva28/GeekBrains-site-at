@@ -1,5 +1,6 @@
 package ru.geekbrains.site.at;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -43,6 +44,7 @@ public class Page {
         return this;
     }
 
+    @Step("Проверка заголовка страницы: {exampleNamePage}")
     public Page checkNamePage(String exampleNamePage) {// метод проверки заголовка страницы
         String headerPageText = headerPage.getText();
         assertThat(headerPageText, equalToCompressingWhiteSpace(exampleNamePage));
@@ -69,6 +71,7 @@ public class Page {
         return coursesPage;
     }
 
+    @Step("Начало поиска по слову: {wordSearch}")
     public SearchPage startSearch(String wordSearch) {
         buttonSearch.click();
         inputSearch.sendKeys(wordSearch);

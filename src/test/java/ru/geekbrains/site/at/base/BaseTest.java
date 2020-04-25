@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -14,8 +15,8 @@ public class BaseTest {
 
     @BeforeEach
     void setUp() {
-//        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
-        WebDriverManager.chromedriver().setup();//просим библиотеку webdrivermanager скачать хром (версию система узнает самостоятельно)
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+//        WebDriverManager.chromedriver().setup();//просим библиотеку webdrivermanager скачать хром (версию система узнает самостоятельно)
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-popup-blocking");
