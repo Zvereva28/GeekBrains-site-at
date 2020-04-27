@@ -1,13 +1,24 @@
 # GeekBrains-site-at
-Учебный проект автоматезированного тестирования на примере сайта geekbrains.ru
+# Проект автоматизации тестирования сайта GeekBrains.
 
-Библиотеки:
-* selenium-java
-* junit-jupiter
-* hamcrest
-* allure-junit5
+Учебный проект автоматезированного тестирования в рамках курса "ООП в Java"
 
-Тесты:
+# Чтобы запустить тесты и просмотреть отчет соберите проект командой:
+
+''mvn clean test allure:serve''
+
+# Библиотеки:
+
+ - selenium-java
+ 
+ - junit-jupiter
+ 
+ - hamcrest
+ 
+ - allure-junit5
+
+
+# Тесты:
 
 Тест GB-search-001
 
@@ -23,7 +34,7 @@
         Тестов не 0
         В Проектах и компаниях отображается GeekBrains
  
- Тест GB-ligin-001
+ Тест GB-login-001
  
     1. Перейти на страницу авторизация https://geekbrains.ru/login
     2. Ввести логин : hao17583@bcaoo.com
@@ -32,7 +43,7 @@
     Ожидаемый результат:
          Отобразилась страница "Главная"
 
-Тест GB-ligin-002
+Тест GB-login-002
 
     1. Перейти на страницу авторизация https://geekbrains.ru/login
     2. Ввести логин : hao17583@bcaoo.com
