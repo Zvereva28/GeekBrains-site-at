@@ -33,29 +33,29 @@ public class Navigation {
     }
 
 
-    public Page clickButton(String nameButton) {
+    public Page clickButton(NavigationButton nameButton) {
         switch (nameButton) {
-            case "Курсы": {
+            case buttonCourses: {
                 buttonCourses.click();
                 break;
             }
-            case "Вебинары": {
+            case buttonEvents: {
                 buttonEvents.click();
                 break;
             }
-            case "Форум": {
+            case buttonTopics: {
                 buttonTopics.click();
                 break;
             }
-            case "Блог": {
+            case buttonPosts: {
                 buttonPosts.click();
                 break;
             }
-            case "Тесты": {
+            case buttonTests: {
                 buttonTests.click();
                 break;
             }
-            case "Карьера": {
+            case buttonCareer: {
                 buttonCareer.click();
                 break;
             }
@@ -67,5 +67,27 @@ public class Navigation {
         return PageFactory.initElements(driver, Page.class);
 
     }
+    public enum NavigationButton{
+        buttonCourses("Курсы"),
+        buttonEvents("Вебинары"),
+        buttonTopics("Форум"),
+        buttonPosts("Давайте посмотрим как выглядят ошибки))"),
+        buttonTests("Тесты"),
+        buttonCareer("Карьера");
+
+        private String nameButton;
+
+        NavigationButton(String nameButton) {
+            this.nameButton = nameButton;
+        }
+
+        public String getText() {
+            return nameButton;
+        }
+
+
+    }
+
+
 }
 
