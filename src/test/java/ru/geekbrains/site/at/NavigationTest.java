@@ -26,20 +26,25 @@ import java.util.stream.Stream;
 @DisplayName("Проверка навигации")
 public class NavigationTest extends BaseTest {
 
-    static Stream<String> stringProvider() {
-        return Stream.of("Курсы", "Вебинары", "Форум", "Блог", "Тесты", "Карьера");
+    static Stream<Navigation.NavigationButton> stringProvider() {
+        return Stream.of(Navigation.NavigationButton.buttonCourses,
+                Navigation.NavigationButton.buttonCareer,
+                Navigation.NavigationButton.buttonTopics,
+                Navigation.NavigationButton.buttonTests,
+                Navigation.NavigationButton.buttonEvents,
+                Navigation.NavigationButton.buttonPosts);
     }
     @Description(value = "1. Перейти на сайт https://geekbrains.ru/courses\n" +
             "2. Нажать на кнопку навигации")
     @DisplayName("Нажатие в навигации")
     @ParameterizedTest(name = "{index} => переход на страницу {0}")
     @MethodSource("stringProvider")
-    void checkNavigation(String namePage) {
+    void checkNavigation(Navigation.NavigationButton button) {
         driver.get("https://geekbrains.ru/career");
 
         PageFactory.initElements(driver, Page.class)
-                .getNavigation().clickButton(namePage)
-                .checkNamePage(namePage).
+                .getNavigation().clickButton(button)
+                .checkNamePage(button.getText()).
                 getHeader().
                 CheckHeaderPresent().
                 getFooter().

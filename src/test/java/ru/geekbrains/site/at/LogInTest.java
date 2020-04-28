@@ -53,7 +53,7 @@ public class LogInTest extends BaseTest {
                 CheckHeaderPresent().getFooter().CheckFooterPresent().
                 checkNamePage("Главная").
                 getNavigation().
-                clickButton("Курсы").
+                clickButton(Navigation.NavigationButton.buttonCourses).
                 getFooter().
                 CheckFooterPresent().
                 getHeader().
