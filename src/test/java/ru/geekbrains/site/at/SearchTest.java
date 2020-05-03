@@ -7,6 +7,7 @@ import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.openqa.selenium.support.PageFactory;
 import ru.geekbrains.site.at.base.BaseTest;
+import ru.geekbrains.site.at.page.BasePage;
 
 @Execution(ExecutionMode.CONCURRENT)
 @DisplayName("Пороверка поисковой выдачи")
@@ -20,7 +21,7 @@ public class SearchTest extends BaseTest {
     void SearchJavaTest() {
         driver.get("https://geekbrains.ru/career");
 
-        PageFactory.initElements(driver, Page.class).
+        PageFactory.initElements(driver, BasePage.class).
                 startSearch("java").
                 checkTitleNumberGreaterThanOrEqualTo("Профессии", 1).
                 checkTitleNumberGreaterThanOrEqualTo("Курсы", 15).

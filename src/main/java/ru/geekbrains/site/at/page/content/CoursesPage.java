@@ -1,4 +1,4 @@
-package ru.geekbrains.site.at;
+package ru.geekbrains.site.at.page.content;
 
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
@@ -7,12 +7,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ru.geekbrains.site.at.page.BasePage;
+import ru.geekbrains.site.at.page.OpenUrl;
 
-public class CoursesPage {
-    private final WebDriver driver;
+public class CoursesPage extends BasePage implements OpenUrl {
+    //private final WebDriver driver;
 
     public CoursesPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     //верхнее меню страницы
@@ -75,7 +77,8 @@ public class CoursesPage {
     // Элементы выдачи
 
     @Step("Выбор пункта {nameButton} в верхнем меню")
-    public Page clickButtonTopMenu(String nameButton) {
+    public BasePage clickButtonTopMenu(String nameButton) {
+
         switch (nameButton) {
             case "Профессии": {
                 topMenuProfButton.click();
@@ -94,7 +97,7 @@ public class CoursesPage {
                 break;
             }
         }
-        return PageFactory.initElements(driver, Page.class);
+        return PageFactory.initElements(driver, BasePage.class);
     }
 
     @Step("Выбор пункта {nameButton} в checkBox")
@@ -167,7 +170,11 @@ public class CoursesPage {
 
         return this;
     }
-
+    @Override
+    public CoursesPage openUrl() {
+        driver.get("https://geekbrains.ru/courses");
+        return this;
+    }
 }
 //
 //

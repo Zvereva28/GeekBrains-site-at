@@ -1,4 +1,4 @@
-package ru.geekbrains.site.at;
+package ru.geekbrains.site.at.blocks;
 
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ru.geekbrains.site.at.page.BasePage;
 
 public class Footer {
     private final WebDriver driver;
@@ -31,13 +32,13 @@ public class Footer {
     private WebElement buttonLicenseFooter;
 
     @Step("Проверка корректности Footer")
-    public Page CheckFooterPresent() {
+    public BasePage CheckFooterPresent() {
         System.out.println("Запуск");
         Assertions.assertNotNull(buttonPhoneFooter.getSize());
         Assertions.assertNotNull(buttonCopyrightFooter.getSize());
         Assertions.assertNotNull(buttonFeedbackFooter.getSize());
         Assertions.assertNotNull(buttonAboutProjectFooter.getSize());
         Assertions.assertNotNull(buttonLicenseFooter.getSize());
-        return PageFactory.initElements(driver, Page.class);
+        return PageFactory.initElements(driver, BasePage.class);
     }
 }

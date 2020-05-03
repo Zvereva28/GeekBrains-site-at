@@ -1,4 +1,4 @@
-package ru.geekbrains.site.at;
+package ru.geekbrains.site.at.page.content;
 
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;

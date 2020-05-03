@@ -7,6 +7,8 @@ import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.openqa.selenium.support.PageFactory;
 import ru.geekbrains.site.at.base.BaseTest;
+import ru.geekbrains.site.at.blocks.Navigation;
+import ru.geekbrains.site.at.page.BasePage;
 
 @Execution(ExecutionMode.CONCURRENT)
 @DisplayName("Регистрация корректные данные")
@@ -21,10 +23,10 @@ public class LogInTest extends BaseTest {
     void LogIn1Test() {
         driver.get("https://geekbrains.ru/login");
 
-        PageFactory.initElements(driver, Page.class).
+        PageFactory.initElements(driver, BasePage.class).
                 getLoginPage().
                 logIN("hao17583@bcaoo.com", "hao17583");
-        PageFactory.initElements(driver, Page.class).checkNamePage("Главная");
+        PageFactory.initElements(driver, BasePage.class).checkNamePage("Главная");
 
     }
 
@@ -42,7 +44,7 @@ public class LogInTest extends BaseTest {
     void Check1AfterLogIn1Test() {
         driver.get("https://geekbrains.ru/login");
 
-        PageFactory.initElements(driver, Page.class).
+        PageFactory.initElements(driver, BasePage.class).
                 getHeader().
                 CheckHeaderPresent().
                 getFooter().

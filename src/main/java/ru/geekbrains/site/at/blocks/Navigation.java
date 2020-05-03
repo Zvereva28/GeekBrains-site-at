@@ -1,12 +1,14 @@
-package ru.geekbrains.site.at;
+package ru.geekbrains.site.at.blocks;
 
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ru.geekbrains.site.at.page.content.CoursesPage;
+import ru.geekbrains.site.at.page.BasePage;
 
-public class Navigation {
+public class Navigation extends BasePage {
 
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/courses\"]")
     private WebElement buttonCourses;
@@ -26,17 +28,20 @@ public class Navigation {
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/career\"]")
     private WebElement buttonCareer;
 
-    private final WebDriver driver;
+    //private final WebDriver driver;
 
     public Navigation(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
 
-    public Page clickButton(NavigationButton nameButton) {
+    public BasePage clickButton(NavigationButton nameButton) {
+        BasePage basePage = null;
         switch (nameButton) {
+
             case buttonCourses: {
                 buttonCourses.click();
+                basePage = new CoursesPage(driver);
                 break;
             }
             case buttonEvents: {
@@ -64,7 +69,7 @@ public class Navigation {
             }
         }
 
-        return PageFactory.initElements(driver, Page.class);
+        return PageFactory.initElements(driver, BasePage.class);
 
     }
     public enum NavigationButton{

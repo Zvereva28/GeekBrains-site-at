@@ -8,6 +8,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.support.PageFactory;
 import ru.geekbrains.site.at.base.BaseTest;
+import ru.geekbrains.site.at.blocks.Navigation;
+import ru.geekbrains.site.at.page.BasePage;
 
 import java.util.stream.Stream;
 
@@ -42,7 +44,7 @@ public class NavigationTest extends BaseTest {
     void checkNavigation(Navigation.NavigationButton button) {
         driver.get("https://geekbrains.ru/career");
 
-        PageFactory.initElements(driver, Page.class)
+        PageFactory.initElements(driver, BasePage.class)
                 .getNavigation().clickButton(button)
                 .checkNamePage(button.getText()).
                 getHeader().

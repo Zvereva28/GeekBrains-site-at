@@ -1,10 +1,11 @@
-package ru.geekbrains.site.at;
+package ru.geekbrains.site.at.page.sign;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ru.geekbrains.site.at.page.BasePage;
 
 public class LoginPage {
     private final WebDriver driver;
@@ -23,13 +24,13 @@ public class LoginPage {
     private WebElement buttonEnter;
 
     @Step("Авторизация почта: {email} пароль: {password}")
-    public Page logIN(String email, String password) {
+    public BasePage logIN(String email, String password) {
         inputEmail.click();
         inputEmail.sendKeys(email);
         inputPassword.clear();
         inputPassword.sendKeys(password);
         buttonEnter.click();
-        return PageFactory.initElements(driver, Page.class);
+        return PageFactory.initElements(driver, BasePage.class);
     }
 
 }
