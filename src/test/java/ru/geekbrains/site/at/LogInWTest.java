@@ -7,8 +7,10 @@ import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.openqa.selenium.support.PageFactory;
 import ru.geekbrains.site.at.base.BaseTest;
+import ru.geekbrains.site.at.blocks.ContentNavigationCourseBlock;
 import ru.geekbrains.site.at.blocks.Navigation;
 import ru.geekbrains.site.at.page.BasePage;
+import ru.geekbrains.site.at.page.content.CoursesPage;
 import ru.geekbrains.site.at.page.sign.LoginPage;
 
 import static java.lang.Thread.sleep;
@@ -55,9 +57,9 @@ public class LogInWTest extends BaseTest {
                 getNavigation().
                 clickButton(Navigation.NavigationButton.buttonCourses).
                 getContentNavigationCourseBlock().
-                clickButton("Курсы").
-                checkBox("Бесплатные").
-                checkBox("Тестирование").
+                clickButton(ContentNavigationCourseBlock.ButtonContentNavigation.buttonCourses).
+                checkBox(CoursesPage.СheckBoxButton.checkBoxFree).
+                checkBox(CoursesPage.СheckBoxButton.checkBoxTesting).
                 checkingDisplayedCourses( "Тестирование ПО. Уровень 1",
                 "Тестирование ПО. Уровень 2");
         sleep(5000);

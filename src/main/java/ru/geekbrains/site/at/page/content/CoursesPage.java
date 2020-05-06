@@ -72,67 +72,93 @@ public class CoursesPage extends ContentBasePage{
         PageFactory.initElements(driver, this);
     }
 
-    @Step("Выбор пункта {nameButton} в checkBox")
-    public CoursesPage checkBox(String nameButton) {
+    @Step("Выбор пункта {nameButton} в фильтре checkBox")
+    public CoursesPage checkBox(СheckBoxButton nameButton) {
         switch (nameButton) {
-            case "Бесплатные": {
+            case checkBoxFree: {
                 checkBoxFree.click();
                 break;
             }
-            case "Для начинающих": {
+            case checkBoxForStart: {
                 checkBoxForStart.click();
                 break;
             }
-            case "Веб-разработка": {
+            case checkBoxWebDevel: {
                 checkBoxWebDevel.click();
                 break;
             }
-            case "Разработка программ": {
+            case checkBoxProgramDevel: {
                 checkBoxProgramDevel.click();
                 break;
             }
-            case "Веб-дизайн": {
+            case checkBoxWebDesign: {
                 checkBoxWebDesign.click();
                 break;
             }
-            case "Мобильная разработка": {
+            case checkBoxMobileDevel: {
                 checkBoxMobileDevel.click();
                 break;
             }
-            case "Разработка игр": {
+            case checkBoxGameDevel: {
                 checkBoxGameDevel.click();
                 break;
             }
-            case "Информационная безопасность": {
+            case checkBoxInformationSecurity: {
                 checkBoxInformationSecurity.click();
                 break;
             }
-            case "Data Science": {
+            case checkBoxDataScience: {
                 checkBoxDataScience.click();
                 break;
             }
-            case "Тестирование": {
+            case checkBoxTesting: {
                 checkBoxTesting.click();
                 break;
             }
-            case "Интернет маркетинг": {
+            case checkBoxInternetMarketing: {
                 checkBoxInternetMarketing.click();
                 break;
             }
-            case "Системное администрирование": {
+            case checkBoxSystemAdministration: {
                 checkBoxSystemAdministration.click();
                 break;
             }
-            case "GeekClub": {
+            case checkBoxGeekClub: {
                 checkBoxGeekClub.click();
                 break;
             }
-            case "Киберспорт": {
+            case checkBoxCyberSport: {
                 checkBoxCyberSport.click();
                 break;
             }
         }
         return this;
+    }
+    public enum СheckBoxButton{
+            checkBoxFree("Бесплатные"),
+            checkBoxForStart("Для начинающих"),
+            checkBoxWebDevel("Веб-разработка"),
+            checkBoxProgramDevel("Разработка программ"),
+            checkBoxWebDesign("Веб-дизайн"),
+            checkBoxMobileDevel("Мобильная разработка"),
+            checkBoxGameDevel("Разработка игр"),
+            checkBoxInformationSecurity("Информационная безопасность"),
+            checkBoxDataScience("Data Science"),
+            checkBoxTesting("Тестирование"),
+            checkBoxInternetMarketing("Интернет маркетинг"),
+            checkBoxSystemAdministration("Системное администрирование"),
+            checkBoxGeekClub("GeekClub"),
+            checkBoxCyberSport("Киберспорт");
+
+        private String nameButton;
+
+        СheckBoxButton(String nameButton) {
+            this.nameButton = nameButton;
+        }
+
+        public String getText() {
+            return nameButton;
+        }
     }
 
     @Step("Проверка присутствия на странице текста: {text} ")

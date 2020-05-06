@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.geekbrains.site.at.page.BasePage;
 import ru.geekbrains.site.at.page.content.SearchPage;
 
+import static java.lang.Thread.sleep;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalToCompressingWhiteSpace;
 
@@ -81,6 +82,7 @@ public class Header  extends BasePage {
 
     @Step("проверка что имя страницы: {exampleNamePage}")
     public Header checkNamePage(String exampleNamePage) {
+        wait10second.until(ExpectedConditions.visibilityOf(headerTitlePage));
         String headerPageText = headerTitlePage.getText();
         assertThat(headerPageText, equalToCompressingWhiteSpace(exampleNamePage));
         return this;// мы не знаем на какой странице проверка звголовка, по этому ставим адаптор этот метод

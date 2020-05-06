@@ -27,33 +27,44 @@ public class ContentNavigationCourseBlock extends BasePage{
         super(driver);
         PageFactory.initElements(driver, this);
     }
-
-
     @Step("Выбор пункта {nameButton} в верхнем меню")
-    public CoursesPage clickButton(String nameButton) {
-        switch (nameButton) {
-            case "Профессии": {
+    public CoursesPage clickButton(ButtonContentNavigation button) {
+        switch (button) {
+            case buttonProfessions: {
                 buttonProfessions.click();
                 break;
             }
-            case "Бесплатные интенсивы": {
+            case buttonFreeIntensive: {
                 buttonFreeIntensive.click();
                 break;
             }
-            case "Курсы": {
+            case buttonCourses: {
                 buttonCourses.click();
                 break;
             }
-            case "Компаниям": {
+            case buttonCompanies: {
                 buttonCompanies.click();
                 break;
             }
             default: {
-                throw new RuntimeException("Не найдена кнопка с именем: " + nameButton);
+                throw new RuntimeException("Не найдена кнопка с именем: " + button.getText());
             }
         }
+        return new CoursesPage(driver);}
+        public enum ButtonContentNavigation{
+            buttonProfessions(""),
+            buttonFreeIntensive(""),
+            buttonCourses(""),
+            buttonCompanies("");
+            private String nameButton;
+            ButtonContentNavigation(String nameButton){this.nameButton = nameButton;}
 
-        return new CoursesPage(driver);
-    }
+            public String getText() {return  nameButton;}
+
+
+
+
+        }
+
 }
 

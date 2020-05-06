@@ -23,11 +23,13 @@ public class NavigationWTest extends BaseTest {
     @DisplayName("Нажатие в навигации")
     @ParameterizedTest(name = "{index} => переход на страницу {0}")
     @MethodSource("stringProvider")
-    void checkNavigation(Navigation.NavigationButton button) {
+    void checkNavigation(Navigation.NavigationButton button) throws InterruptedException {
         new TestPage(driver)
                 .openUrl()
-                .getNavigation().clickButton(button)
-                .getHeader().checkNamePage(button.getText());
+                .getNavigation().
+                clickButton(button)
+                .getHeader().
+                checkNamePage(button.getText());
     }
 
 }

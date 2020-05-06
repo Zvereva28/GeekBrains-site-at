@@ -44,7 +44,7 @@ public class Navigation extends BasePage {
     }
 
 
-    @Step("Нажатие кнопки {button.getText()}")
+    @Step("Нажатие кнопки {button}")
     public ContentBasePage clickButton(NavigationButton button) {
         ContentBasePage contentBasePage = null;
 
@@ -59,12 +59,15 @@ public class Navigation extends BasePage {
                 break;
             case buttonEvents:
                 buttonEvents.click();
+                contentBasePage = new HomePage(driver);
                 break;
             case buttonTopics:
                 buttonTopics.click();
+                contentBasePage = new HomePage(driver);
                 break;
             case buttonPosts:
                 buttonPosts.click();
+                contentBasePage = new HomePage(driver);
                 break;
             case buttonTests:
                 buttonTests.click();
@@ -72,6 +75,7 @@ public class Navigation extends BasePage {
                 break;
             case buttonCareer:
                 buttonCareer.click();
+                contentBasePage = new HomePage(driver);
                 break;
         }
         if(null==contentBasePage){
@@ -87,7 +91,7 @@ public class Navigation extends BasePage {
         buttonCourses("Курсы"),
         buttonEvents("Вебинары"),
         buttonTopics("Форум"),
-        buttonPosts("Блоги"),
+        buttonPosts("Блог"),
         buttonTests("Тесты"),
         buttonCareer("Карьера");
 
@@ -100,8 +104,6 @@ public class Navigation extends BasePage {
         public String getText() {
             return nameButton;
         }
-
-
     }
 
 
