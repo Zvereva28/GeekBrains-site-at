@@ -1,14 +1,22 @@
 package ru.geekbrains.site.at.blocks;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ru.geekbrains.site.at.page.base.ContentBasePage;
 import ru.geekbrains.site.at.page.content.CoursesPage;
 import ru.geekbrains.site.at.page.BasePage;
+import ru.geekbrains.site.at.page.content.HomePage;
+import ru.geekbrains.site.at.page.content.TestPage;
+import ru.geekbrains.site.at.utill.PageNotCreateException;
 
 public class Navigation extends BasePage {
+
+    @FindBy(css = "[class='svg-icon icon-logo']")
+    private WebElement icon;
 
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/courses\"]")
     private WebElement buttonCourses;
@@ -28,55 +36,58 @@ public class Navigation extends BasePage {
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/career\"]")
     private WebElement buttonCareer;
 
-    //private final WebDriver driver;
 
     public Navigation(WebDriver driver) {
+
         super(driver);
+        PageFactory.initElements(driver, this);
     }
 
 
-    public BasePage clickButton(NavigationButton nameButton) {
-        BasePage basePage = null;
-        switch (nameButton) {
+    @Step("Нажатие кнопки {button.getText()}")
+    public ContentBasePage clickButton(NavigationButton button) {
+        ContentBasePage contentBasePage = null;
 
-            case buttonCourses: {
-                buttonCourses.click();
-                basePage = new CoursesPage(driver);
+        switch (button) {
+            case icon:
+                icon.click();
+                contentBasePage = new HomePage(driver);
                 break;
-            }
-            case buttonEvents: {
+            case buttonCourses:
+                buttonCourses.click();
+                contentBasePage = new CoursesPage(driver);
+                break;
+            case buttonEvents:
                 buttonEvents.click();
                 break;
-            }
-            case buttonTopics: {
+            case buttonTopics:
                 buttonTopics.click();
                 break;
-            }
-            case buttonPosts: {
+            case buttonPosts:
                 buttonPosts.click();
                 break;
-            }
-            case buttonTests: {
+            case buttonTests:
                 buttonTests.click();
+                contentBasePage = new TestPage(driver);
                 break;
-            }
-            case buttonCareer: {
+            case buttonCareer:
                 buttonCareer.click();
                 break;
-            }
-            default: {
-                throw new NotFoundException("Не найдена кнопка с именем: " + nameButton);
-            }
+        }
+        if(null==contentBasePage){
+            throw new PageNotCreateException("Страница: "+button.getText()+" не описана!");
         }
 
-        return PageFactory.initElements(driver, BasePage.class);
-
+        return contentBasePage;
     }
+
+
     public enum NavigationButton{
+        icon("Главная"),
         buttonCourses("Курсы"),
         buttonEvents("Вебинары"),
         buttonTopics("Форум"),
-        buttonPosts("Давайте посмотрим как выглядят ошибки))"),
+        buttonPosts("Блоги"),
         buttonTests("Тесты"),
         buttonCareer("Карьера");
 

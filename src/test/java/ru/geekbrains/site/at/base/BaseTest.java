@@ -15,15 +15,14 @@ public class BaseTest {
 
     @BeforeEach
     void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
-//        WebDriverManager.chromedriver().setup();//просим библиотеку webdrivermanager скачать хром (версию система узнает самостоятельно)
+        WebDriverManager.chromedriver().setup();//просим библиотеку webdrivermanager скачать хром (версию система узнает самостоятельно)
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-popup-blocking");
         options.setExperimentalOption("excludeSwitches", Arrays.asList("disable-popup-blocking"));// создаем опции для отключения всплывающих окон
         driver = new ChromeDriver(options);//создаем экземпляр хромдрайвера и передаем в него опции
         driver.manage().window().maximize();//разворачиваем окно на весь экран
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);// ожидание 10 секунд
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);// ожидание 30 секунд
     }
 
     @AfterEach

@@ -1,33 +1,23 @@
 package ru.geekbrains.site.at.page;
 
-import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import ru.geekbrains.site.at.page.content.SearchPage;
-import ru.geekbrains.site.at.blocks.Footer;
-import ru.geekbrains.site.at.blocks.Header;
-import ru.geekbrains.site.at.blocks.Navigation;
-import ru.geekbrains.site.at.page.content.CoursesPage;
-import ru.geekbrains.site.at.page.sign.LoginPage;
-
+import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalToCompressingWhiteSpace;
-
 public abstract class BasePage {
+
     protected WebDriver driver;
+    protected WebDriverWait wait10second;
 
     public BasePage(WebDriver driver) {
+
         this.driver = driver;
+        this.wait10second = new WebDriverWait(driver, 10);
         }
 
-
-  //  @Step("Проверка присутствия на  странице кнопки с текстом: {expectedText}")
-    protected WebElement findElements(List<WebElement> listOfElements, String expectedText){
+    protected WebElement findElement(List<WebElement> listOfElements, String expectedText){
         List<String> arrayList = new ArrayList<>();
         for (WebElement webElement:listOfElements){//перебираем массив элементов
             String actualText = webElement.getText();//считываем тескм в каждого элемента

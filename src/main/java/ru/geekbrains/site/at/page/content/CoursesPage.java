@@ -7,30 +7,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.geekbrains.site.at.blocks.ContentNavigationCourseBlock;
 import ru.geekbrains.site.at.page.BasePage;
 import ru.geekbrains.site.at.page.OpenUrl;
+import ru.geekbrains.site.at.page.base.ContentBasePage;
 
-public class CoursesPage extends BasePage implements OpenUrl {
-    //private final WebDriver driver;
+import java.util.List;
 
-    public CoursesPage(WebDriver driver) {
-        super(driver);
-    }
-
-    //верхнее меню страницы
-    @FindBy(css = "[id=\"prof-link\"]")
-    private WebElement topMenuProfButton;//профессии
-
-    @FindBy(css = "[id=\"free-link\"]")
-    private WebElement topMenuFreeLinkButton;//бесплатные интерактивы
-
-    @FindBy(css = "[id=\"cour-link\"][class=\"text-dark-dk\"]")
-    private WebElement topMenuCourLinkButton;//курсы
-
-    @FindBy(css = "[class=\"text-dark-dk\"][href=\"https://forbusiness.geekbrains.ru?utm_medium=referral&utm_source=geekbrains.ru\"]")
-    private WebElement topMenuForCompanyButton;//компаниям
+public class CoursesPage extends ContentBasePage{
+    private ContentNavigationCourseBlock contentNavigationCourseBlock;
 
 
+    @FindBy(xpath = "//a/div/div/span")
+    private List<WebElement> courseList;//все курсы на странице
     // чекБокс
     @FindBy(css = "[id=\"filter-0\"]")
     private WebElement checkBoxFree;//Бесплатные
@@ -74,30 +64,12 @@ public class CoursesPage extends BasePage implements OpenUrl {
     @FindBy(css = "[id=\"filter-13\"]")
     private WebElement checkBoxCyberSport;//Киберспорт
 
-    // Элементы выдачи
 
-    @Step("Выбор пункта {nameButton} в верхнем меню")
-    public BasePage clickButtonTopMenu(String nameButton) {
+    public CoursesPage(WebDriver driver) {
 
-        switch (nameButton) {
-            case "Профессии": {
-                topMenuProfButton.click();
-                break;
-            }
-            case "Бенсплатные интенсивы": {
-                topMenuFreeLinkButton.click();
-                break;
-            }
-            case "Курсы": {
-                topMenuCourLinkButton.click();
-                break;
-            }
-            case "Компаниям": {
-                topMenuForCompanyButton.click();
-                break;
-            }
-        }
-        return PageFactory.initElements(driver, BasePage.class);
+        super(driver);
+        this.contentNavigationCourseBlock = new ContentNavigationCourseBlock(driver);
+        PageFactory.initElements(driver, this);
     }
 
     @Step("Выбор пункта {nameButton} в checkBox")
@@ -170,23 +142,23 @@ public class CoursesPage extends BasePage implements OpenUrl {
 
         return this;
     }
+
+    @Step("Проверяем, что текст {String... args} отображается")
+    public CoursesPage checkingDisplayedCourses(String... args) {
+        for (String test : args) {
+            WebElement element = findElement(courseList, test);
+            wait10second.until(ExpectedConditions.visibilityOf(element));
+        }
+        return this;
+    }
+    public ContentNavigationCourseBlock getContentNavigationCourseBlock() {
+        return contentNavigationCourseBlock;
+    }
+
     @Override
+    @Step("Загружаем страницу https://geekbrains.ru/courses")
     public CoursesPage openUrl() {
         driver.get("https://geekbrains.ru/courses");
         return this;
     }
 }
-//
-//
-//        Веб-разработка
-//        Разработка программ
-//        Веб-дизайн
-//        Мобильная разработка
-//        Разработка игр
-//        Информационная безопасность
-//        Data Science
-//        Тестирование
-//        Интернет маркетинг
-//        Системное администрирование
-//        GeekClub
-//        Киберспорт

@@ -7,38 +7,47 @@ import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.geekbrains.site.at.blocks.SearchTabsBlock;
+import ru.geekbrains.site.at.page.OpenUrl;
+import ru.geekbrains.site.at.page.base.ContentBasePage;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
 
-public class SearchPage {
-    private final WebDriver driver;
+public class SearchPage extends ContentBasePage {
 
+    private SearchTabsBlock searchTabsBlock;
     public SearchPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
+        this.searchTabsBlock = new SearchTabsBlock(driver);
     }
 
     //ЗАГОЛОВКИ ПОИСКОВОЙ ВЫДАЧИ
-    @FindBy(xpath = "/html/body/div[1]/div[7]/div/div[1]/div/ul/li[2]/a")
-    private WebElement titleProfessions;
+    @FindBy(css = "[class='search-page-tabs'] [data-tab='all']")
+    private WebElement tabEveryWhere;
 
-    @FindBy(xpath = "/html/body/div[1]/div[7]/div/div[1]/div/ul/li[3]/a")
-    private WebElement titleCourses;
+    @FindBy(css = "[class='search-page-tabs'] [data-tab='professions']")
+    private WebElement tabProfessions;
 
-    @FindBy(xpath = "/html/body/div[1]/div[7]/div/div[1]/div/ul/li[4]/a")
-    private WebElement titleWebinars;
+    @FindBy(css = "[class='search-page-tabs'] [data-tab='courses']")
+    private WebElement tabCourses;
 
-    @FindBy(xpath = "/html/body/div[1]/div[7]/div/div[1]/div/ul/li[5]/a")
-    private WebElement titleBlog;
+    @FindBy(css = "[class='search-page-tabs'] [data-tab='webinars']")
+    private WebElement tabWebinars;
 
-    @FindBy(xpath = "/html/body/div[1]/div[7]/div/div[1]/div/ul/li[6]/a")
-    private WebElement titleForum;
+    @FindBy(css = "[class='search-page-tabs'] [data-tab='blogs']")
+    private WebElement tabBlogs;
 
-    @FindBy(xpath = "/html/body/div[1]/div[7]/div/div[1]/div/ul/li[7]/a")
-    private WebElement titleTests;
+    @FindBy(css = "[class='search-page-tabs'] [data-tab='forums']")
+    private WebElement tabForums;
 
-    @FindBy(xpath = "/html/body/div[1]/div[7]/div/div[1]/div/ul/li[8]/a")
-    private WebElement titleCompanies;
+    @FindBy(css = "[class='search-page-tabs'] [data-tab='tests']")
+    private WebElement tabTests;
+
+    @FindBy(css = "[class='search-page-tabs'] [data-tab='companies']")
+    private WebElement tabCompanies;
+
+
 
     @FindBy(linkText = "Образовательный портал GeekBrains")
     private WebElement blockCompanies;
@@ -51,46 +60,46 @@ public class SearchPage {
 
     //ДЛЯ SEARCH TEST
     @Step("Проверка поисковой выдачи элементов раздела {nameTitle} не менее {Integer minNumber}")
-    public SearchPage checkTitleNumberGreaterThanOrEqualTo(String nameTitle, Integer minNumber) {
+    public SearchPage checkTitleNumberGreaterThanOrEqualTo(SearchTitle nameTitle, Integer minNumber) {
         switch (nameTitle) {
-            case "Профессии": {
-                String[] token = titleProfessions.getText().split("・");
+            case tabProfessions: {
+                String[] token = tabProfessions.getText().split("・");
                 int count = Integer.parseInt(token[1]);
                 assertThat(count, greaterThanOrEqualTo(minNumber));
                 break;
             }
-            case "Курсы": {
-                String[] token = titleCourses.getText().split("・");
+            case tabCourses: {
+                String[] token = tabCourses.getText().split("・");
                 int count = Integer.parseInt(token[1]);
                 assertThat(count, greaterThanOrEqualTo(minNumber));
                 break;
             }
-            case "Вебинары": {
-                String[] token = titleWebinars.getText().split("・");
+            case tabWebinars: {
+                String[] token = tabWebinars.getText().split("・");
                 int count = Integer.parseInt(token[1]);
                 assertThat(count, greaterThanOrEqualTo(minNumber));
                 break;
             }
-            case "Блоги": {
-                String[] token = titleBlog.getText().split("・");
+            case tabBlog: {
+                String[] token = tabBlogs.getText().split("・");
                 int count = Integer.parseInt(token[1]);
                 assertThat(count, greaterThanOrEqualTo(minNumber));
                 break;
             }
-            case "Форумы": {
-                String[] token = titleForum.getText().split("・");
+            case tabForum: {
+                String[] token = tabForums.getText().split("・");
                 int count = Integer.parseInt(token[1]);
                 assertThat(count, greaterThanOrEqualTo(minNumber));
                 break;
             }
-            case "Тесты": {
-                String[] token = titleTests.getText().split("・");
+            case tabTests: {
+                String[] token = tabTests.getText().split("・");
                 int count = Integer.parseInt(token[1]);
                 assertThat(count, greaterThanOrEqualTo(minNumber));
                 break;
             }
-            case "Компании": {
-                String[] token = titleCompanies.getText().split("・");
+            case tabCompanies: {
+                String[] token = tabCompanies.getText().split("・");
                 int count = Integer.parseInt(token[1]);
                 assertThat(count, greaterThanOrEqualTo(minNumber));
                 break;
@@ -103,6 +112,22 @@ public class SearchPage {
         }
         return this;
     }
+    public enum SearchTitle{
+        tabProfessions("Профессии"),
+        tabCourses("Курсы"),
+        tabWebinars("Вебинары"),
+        tabBlog("Блоги"),
+        tabForum("Форумы"),
+        tabTests("Тесты"),
+        tabCompanies("Компании");
+
+        private String nameTab;
+
+        SearchTitle(String nameButton) {this.nameTab = nameButton;}
+
+        public String getText() {return nameTab;}
+
+    }
 
     @Step("Проверка присутствия на странице текста: {nameCompany} ")
     public SearchPage checkCompanyIsPresent(String nameCompany) {
@@ -110,5 +135,15 @@ public class SearchPage {
         Assertions.assertNotNull(element.getSize());
 
         return this;
+    }
+
+    @Override
+    @Step("Загружаем страницу https://geekbrains.ru/search")
+    public SearchPage openUrl() {
+        driver.get("https://geekbrains.ru/search");
+        return this;
+    }
+    public SearchTabsBlock getSearchTabsBlock() {
+        return searchTabsBlock;
     }
 }
